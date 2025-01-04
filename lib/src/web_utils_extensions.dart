@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart';
@@ -18,17 +19,76 @@ extension IterableNodeExtension on Iterable<Node> {
 extension DocumentExtension on Document {
   T? select<T extends Element>(String selectors) {
     var o = document.querySelector(selectors);
-    return o?.asElement<T>();
+    return o?.asElementOf<T>();
   }
 
   List<T> selectAll<T extends Element>(String selectors) {
     var l = document.querySelectorAll(selectors).whereElement();
-    return l.map((e) => e.asElement<T>()).nonNulls.toList();
+    return l.map((e) => e.asElementOf<T>()).nonNulls.toList();
+  }
+}
+
+extension NodeNullableExtension on Node? {
+  Element? get asElementChecked => isA<Element>() ? this as Element : null;
+
+  HTMLElement? get asHTMLElementChecked =>
+      isA<HTMLElement>() ? this as HTMLElement : null;
+}
+
+extension NodeExtension on Node {
+  Element get asElement => this as Element;
+
+  HTMLElement get asHTMLElement => this as HTMLElement;
+
+  Node insertNode(int index, Node node) {
+    final childNodes = this.childNodes;
+    if (index >= childNodes.length) {
+      return appendChild(node);
+    } else {
+      var node = childNodes.item(index)!;
+      return insertBefore(node, node);
+    }
+  }
+
+  Node? removeNodeAt(int index) {
+    final childNodes = this.childNodes;
+    if (index < 0 || index >= childNodes.length) return null;
+
+    var node = childNodes.item(index);
+    if (node == null) return null;
+
+    return removeChild(node);
+  }
+
+  void appendNodes(Iterable<Node> nodes) {
+    for (var node in nodes) {
+      appendChild(node);
+    }
+  }
+
+  void remove() {
+    parentNode?.removeChild(this);
+  }
+
+  void clear() {
+    if (isA<Element>()) {
+      asElement.innerHTML = ''.toJS;
+    } else {
+      clearNodes();
+    }
+  }
+
+  List<Node> clearNodes() {
+    var nodes = childNodes.toList();
+    for (var n in nodes.reversed) {
+      n.removeChild(n);
+    }
+    return nodes;
   }
 }
 
 extension ElementNullableExtension on Element? {
-  T? asElement<T extends Element>() {
+  T? asElementOf<T extends Element>() {
     final self = this;
 
     if (self == null || self.isUndefinedOrNull) {
@@ -53,6 +113,14 @@ extension ElementNullableExtension on Element? {
       }
     }
   }
+
+  bool get isCanvasImageSource {
+    final node = this;
+    if (node == null) return false;
+    return node.isA<HTMLImageElement>() ||
+        node.isA<HTMLCanvasElement>() ||
+        node.isA<HTMLVideoElement>();
+  }
 }
 
 extension ElementExtension on Element {
@@ -63,24 +131,24 @@ extension ElementExtension on Element {
   HTMLElement? get asHTMLElement =>
       isA<HTMLElement>() ? this as HTMLElement : null;
 
-  Node insertChild(int index, Element node) {
+  Element insertChild(int index, Element node) {
     final children = this.children;
     if (index >= children.length) {
-      return appendChild(node);
+      return appendChild(node) as Element;
     } else {
       var elem = children.item(index)!;
-      return insertBefore(elem, node);
+      return insertBefore(elem, node) as Element;
     }
   }
 
-  Node insertNode(int index, Node node) {
-    final childNodes = this.childNodes;
-    if (index >= childNodes.length) {
-      return appendChild(node);
-    } else {
-      var node = childNodes.item(index)!;
-      return insertBefore(node, node);
-    }
+  Element? removeChildAt(int index) {
+    final children = this.children;
+    if (index < 0 || index >= children.length) return null;
+
+    var element = children.item(index);
+    if (element == null) return null;
+
+    return removeChild(element) as Element;
   }
 
   void appendAll(Iterable<JSAny> nodes) {
@@ -89,10 +157,8 @@ extension ElementExtension on Element {
     }
   }
 
-  void appendNodes(Iterable<Node> nodes) {
-    for (var node in nodes) {
-      appendChild(node);
-    }
+  void clear() {
+    innerHTML = ''.toJS;
   }
 }
 
@@ -189,6 +255,10 @@ extension DOMTokenListExtension on DOMTokenList {
       remove(c);
     }
   }
+
+  void clear() {
+    value = '';
+  }
 }
 
 extension NamedNodeMapExtension on NamedNodeMap {
@@ -201,6 +271,9 @@ extension NamedNodeMapExtension on NamedNodeMap {
   bool get isEmpty => length == 0;
 
   bool get isNotEmpty => !isEmpty;
+
+  Map<String, String> toMap() =>
+      Map.fromEntries(toIterable().map((a) => MapEntry(a.name, a.value)));
 }
 
 extension HTMLCollectionExtension on HTMLCollection {
@@ -360,6 +433,16 @@ extension TextMetricsExtension on TextMetrics {
       tryCall(() => fontBoundingBoxDescent);
 
   double? get tryEmHeightAscent => tryCall(() => emHeightAscent);
+}
+
+extension MouseEventExtension on MouseEvent {
+  Point get clientPoint => Point(clientX, clientY);
+
+  Point get offsetPoint => Point(offsetX, offsetY);
+
+  Point get pagePoint => Point(pageX, pageY);
+
+  Point get screenPoint => Point(screenX, screenY);
 }
 
 extension _CompleterExtension<T> on Completer<T> {
