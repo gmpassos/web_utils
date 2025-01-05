@@ -124,7 +124,7 @@ extension ElementNullableExtension on Element? {
 }
 
 extension ElementExtension on Element {
-  String? get text => textContent;
+  String? get text => textContent?.toDartFix;
 
   set text(String? text) => textContent = text;
 
@@ -224,7 +224,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
 
 extension DOMTokenListExtension on DOMTokenList {
   Iterable<String> toIterable() =>
-      List.generate(length, (i) => item(i)).nonNulls;
+      List.generate(length, (i) => item(i)?.toDartFix).nonNulls;
 
   List<String> toList() => toIterable().toList();
 
@@ -272,8 +272,12 @@ extension NamedNodeMapExtension on NamedNodeMap {
 
   bool get isNotEmpty => !isEmpty;
 
-  Map<String, String> toMap() =>
-      Map.fromEntries(toIterable().map((a) => MapEntry(a.name, a.value)));
+  Map<String, String> toMap() => Map.fromEntries(toIterable().map(
+        (a) => MapEntry(
+          a.name.toDartFix,
+          a.value.toDartFix,
+        ),
+      ));
 }
 
 extension HTMLCollectionExtension on HTMLCollection {
@@ -336,7 +340,8 @@ extension StorageExtension on Storage {
 
   bool get isNotEmpty => !isEmpty;
 
-  Iterable<String> get keys => List.generate(length, (i) => key(i)).nonNulls;
+  Iterable<String> get keys =>
+      List.generate(length, (i) => key(i)?.toDartFix).nonNulls;
 
   bool remove(String key) {
     var prevLng = length;

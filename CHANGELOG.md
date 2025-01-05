@@ -1,3 +1,9 @@
+## 1.0.3
+
+- Use `toDartFix` on `String` coming from JS.
+
+- js_interop_utils: ^1.0.3
+
 ## 1.0.2
 
 - New `NodeExtension`:
