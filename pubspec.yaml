@@ -1,13 +1,13 @@
 name: web_utils
 description: A collection of useful Dart extensions for web development, enhancing JavaScript interop and simplifying common operations with the `web` package.
-version: 1.0.3
+version: 1.0.4
 repository: https://github.com/gmpassos/web_utils
 
 environment:
   sdk: ^3.6.0
 
 dependencies:
-  js_interop_utils: ^1.0.3
+  js_interop_utils: ^1.0.4
   web: ^1.1.0
 
 dev_dependencies:
