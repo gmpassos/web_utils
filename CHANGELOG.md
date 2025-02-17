@@ -1,3 +1,9 @@
+## 1.0.5
+
+- js_interop_utils: ^1.0.5
+
+- test: ^1.25.15
+
 ## 1.0.4
 
 - js_interop_utils: ^1.0.4
