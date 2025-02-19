@@ -1,3 +1,16 @@
+## 1.0.6
+
+- `NodeExtension`:
+  - `insertNode`: fix and optimize use of `insertBefore`.
+
+- `ElementExtension`:
+  - `insertChild`: fix and optimize use of `insertBefore`.
+
+- `NodeListExtension`:
+  - Removed `whereType` (can't use generics with `web` extension types).
+  - Added `where`.
+  - Fix `whereElement` and `whereHTMLElement`.
+
 ## 1.0.5
 
 - js_interop_utils: ^1.0.5

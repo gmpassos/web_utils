@@ -113,9 +113,16 @@ extension NodeExtension on Node {
     final childNodes = this.childNodes;
     if (index >= childNodes.length) {
       return appendChild(node);
+    } else if (index == 0) {
+      var child0 = firstChild;
+      if (child0 == null) {
+        return appendChild(node);
+      } else {
+        return insertBefore(node, child0);
+      }
     } else {
-      var node = childNodes.item(index)!;
-      return insertBefore(node, node);
+      var child = childNodes.item(index)!;
+      return insertBefore(node, child);
     }
   }
 
@@ -356,9 +363,16 @@ extension ElementExtension on Element {
     final children = this.children;
     if (index >= children.length) {
       return appendChild(node) as Element;
+    } else if (index == 0) {
+      var child0 = firstChild;
+      if (child0 == null) {
+        return appendChild(node) as Element;
+      } else {
+        return insertBefore(node, child0) as Element;
+      }
     } else {
-      var elem = children.item(index)!;
-      return insertBefore(elem, node) as Element;
+      var child = children.item(index)!;
+      return insertBefore(node, child) as Element;
     }
   }
 
@@ -623,17 +637,20 @@ extension NodeListExtension on NodeList {
 
   List<Node> toList() => List.generate(length, (i) => item(i)!);
 
-  Iterable<T> whereType<T extends Node>() => toIterable().whereType<T>();
+  Iterable<Node> where(bool Function(Node element) test) =>
+      toIterable().where(test);
 
   Iterable<E> whereElementType<E extends Element>(Web<E> webType) {
     return whereElement().where((e) => e.isElementOf<E>(webType)).cast<E>();
   }
 
-  Iterable<Element> whereElement() => whereType<Element>();
+  Iterable<Element> whereElement() =>
+      where((e) => e.isA<Element>()).cast<Element>();
 
   List<Element> toElements() => whereElement().toList();
 
-  Iterable<HTMLElement> whereHTMLElement() => whereType<HTMLElement>();
+  Iterable<HTMLElement> whereHTMLElement() =>
+      where((e) => e.isA<HTMLElement>()).cast<HTMLElement>();
 
   List<HTMLElement> toHTMLElements() => whereHTMLElement().toList();
 
