@@ -196,6 +196,8 @@ enum Web<T> {
   // ignore: constant_identifier_names
   HTMLDivElement(_isHTMLDivElement, _castHTMLDivElement),
   // ignore: constant_identifier_names
+  HTMLLinkElement(_isHTMLLinkElement, _castHTMLLinkElement),
+  // ignore: constant_identifier_names
   HTMLButtonElement(_isHTMLButtonElement, _castHTMLButtonElement),
   // ignore: constant_identifier_names
   HTMLTextAreaElement(_isHTMLTextAreaElement, _castHTMLTextAreaElement),
@@ -214,7 +216,56 @@ enum Web<T> {
   // ignore: constant_identifier_names
   HTMLTableRowElement(_isHTMLTableRowElement, _castHTMLTableRowElement),
   // ignore: constant_identifier_names
-  HTMLTableCellElement(_isHTMLTableCellElement, _castHTMLTableCellElement);
+  HTMLTableCellElement(_isHTMLTableCellElement, _castHTMLTableCellElement),
+  // ignore: constant_identifier_names
+  HTMLFormElement(_isHTMLFormElement, _castHTMLFormElement),
+  // ignore: constant_identifier_names
+  HTMLLabelElement(_isHTMLLabelElement, _castHTMLLabelElement),
+  // ignore: constant_identifier_names
+  HTMLParagraphElement(_isHTMLParagraphElement, _castHTMLParagraphElement),
+  // ignore: constant_identifier_names
+  HTMLHeadingElement(_isHTMLHeadingElement, _castHTMLHeadingElement),
+  // ignore: constant_identifier_names
+  HTMLUListElement(_isHTMLUListElement, _castHTMLUListElement),
+  // ignore: constant_identifier_names
+  HTMLOListElement(_isHTMLOListElement, _castHTMLOListElement),
+  // ignore: constant_identifier_names
+  HTMLLIElement(_isHTMLLIElement, _castHTMLLIElement),
+  // ignore: constant_identifier_names
+  HTMLIFrameElement(_isHTMLIFrameElement, _castHTMLIFrameElement),
+  // ignore: constant_identifier_names
+  HTMLMetaElement(_isHTMLMetaElement, _castHTMLMetaElement),
+  // ignore: constant_identifier_names
+  HTMLScriptElement(_isHTMLScriptElement, _castHTMLScriptElement),
+  // ignore: constant_identifier_names
+  HTMLStyleElement(_isHTMLStyleElement, _castHTMLStyleElement),
+  // ignore: constant_identifier_names
+  HTMLCanvasElement(_isHTMLCanvasElement, _castHTMLCanvasElement),
+  // ignore: constant_identifier_names
+  HTMLVideoElement(_isHTMLVideoElement, _castHTMLVideoElement),
+  // ignore: constant_identifier_names
+  HTMLAudioElement(_isHTMLAudioElement, _castHTMLAudioElement),
+  // ignore: constant_identifier_names
+  HTMLDialogElement(_isHTMLDialogElement, _castHTMLDialogElement),
+  // ignore: constant_identifier_names
+  HTMLOutputElement(_isHTMLOutputElement, _castHTMLOutputElement),
+  // ignore: constant_identifier_names
+  HTMLPictureElement(_isHTMLPictureElement, _castHTMLPictureElement),
+  // ignore: constant_identifier_names
+  HTMLSourceElement(_isHTMLSourceElement, _castHTMLSourceElement),
+  // ignore: constant_identifier_names
+  HTMLTrackElement(_isHTMLTrackElement, _castHTMLTrackElement),
+  // ignore: constant_identifier_names
+  HTMLTableCaptionElement(
+      _isHTMLTableCaptionElement, _castHTMLTableCaptionElement),
+  // ignore: constant_identifier_names
+  HTMLTableColElement(_isHTMLTableColElement, _castHTMLTableColElement),
+  // ignore: constant_identifier_names
+  HTMLTableSectionElement(
+      _isHTMLTableSectionElement, _castHTMLTableSectionElement),
+  // ignore: constant_identifier_names
+  Notification(_isNotification, _castNotification),
+  ;
 
   /////////////////
 
@@ -232,6 +283,11 @@ enum Web<T> {
 
   static web.HTMLDivElement? _castHTMLDivElement(JSAny? o) =>
       o.isA<web.HTMLDivElement>() ? o as web.HTMLDivElement : null;
+
+  static bool _isHTMLLinkElement(JSAny? o) => o.isA<web.HTMLLinkElement>();
+
+  static web.HTMLLinkElement? _castHTMLLinkElement(JSAny? o) =>
+      o.isA<web.HTMLLinkElement>() ? o as web.HTMLLinkElement : null;
 
   static bool _isHTMLButtonElement(JSAny? o) => o.isA<web.HTMLButtonElement>();
 
@@ -286,6 +342,131 @@ enum Web<T> {
   static web.HTMLTableCellElement? _castHTMLTableCellElement(JSAny? o) =>
       o.isA<web.HTMLTableCellElement>() ? o as web.HTMLTableCellElement : null;
 
+  static bool _isHTMLFormElement(JSAny? o) => o.isA<web.HTMLFormElement>();
+
+  static web.HTMLFormElement? _castHTMLFormElement(JSAny? o) =>
+      o.isA<web.HTMLFormElement>() ? o as web.HTMLFormElement : null;
+
+  static bool _isHTMLLabelElement(JSAny? o) => o.isA<web.HTMLLabelElement>();
+
+  static web.HTMLLabelElement? _castHTMLLabelElement(JSAny? o) =>
+      o.isA<web.HTMLLabelElement>() ? o as web.HTMLLabelElement : null;
+
+  static bool _isHTMLParagraphElement(JSAny? o) =>
+      o.isA<web.HTMLParagraphElement>();
+
+  static web.HTMLParagraphElement? _castHTMLParagraphElement(JSAny? o) =>
+      o.isA<web.HTMLParagraphElement>() ? o as web.HTMLParagraphElement : null;
+
+  static bool _isHTMLHeadingElement(JSAny? o) =>
+      o.isA<web.HTMLHeadingElement>();
+
+  static web.HTMLHeadingElement? _castHTMLHeadingElement(JSAny? o) =>
+      o.isA<web.HTMLHeadingElement>() ? o as web.HTMLHeadingElement : null;
+
+  static bool _isHTMLUListElement(JSAny? o) => o.isA<web.HTMLUListElement>();
+
+  static web.HTMLUListElement? _castHTMLUListElement(JSAny? o) =>
+      o.isA<web.HTMLUListElement>() ? o as web.HTMLUListElement : null;
+
+  static bool _isHTMLOListElement(JSAny? o) => o.isA<web.HTMLOListElement>();
+
+  static web.HTMLOListElement? _castHTMLOListElement(JSAny? o) =>
+      o.isA<web.HTMLOListElement>() ? o as web.HTMLOListElement : null;
+
+  static bool _isHTMLLIElement(JSAny? o) => o.isA<web.HTMLLIElement>();
+
+  static web.HTMLLIElement? _castHTMLLIElement(JSAny? o) =>
+      o.isA<web.HTMLLIElement>() ? o as web.HTMLLIElement : null;
+
+  static bool _isHTMLIFrameElement(JSAny? o) => o.isA<web.HTMLIFrameElement>();
+
+  static web.HTMLIFrameElement? _castHTMLIFrameElement(JSAny? o) =>
+      o.isA<web.HTMLIFrameElement>() ? o as web.HTMLIFrameElement : null;
+
+  static bool _isHTMLMetaElement(JSAny? o) => o.isA<web.HTMLMetaElement>();
+
+  static web.HTMLMetaElement? _castHTMLMetaElement(JSAny? o) =>
+      o.isA<web.HTMLMetaElement>() ? o as web.HTMLMetaElement : null;
+
+  static bool _isHTMLScriptElement(JSAny? o) => o.isA<web.HTMLScriptElement>();
+
+  static web.HTMLScriptElement? _castHTMLScriptElement(JSAny? o) =>
+      o.isA<web.HTMLScriptElement>() ? o as web.HTMLScriptElement : null;
+
+  static bool _isHTMLStyleElement(JSAny? o) => o.isA<web.HTMLStyleElement>();
+
+  static web.HTMLStyleElement? _castHTMLStyleElement(JSAny? o) =>
+      o.isA<web.HTMLStyleElement>() ? o as web.HTMLStyleElement : null;
+
+  static bool _isHTMLCanvasElement(JSAny? o) => o.isA<web.HTMLCanvasElement>();
+
+  static web.HTMLCanvasElement? _castHTMLCanvasElement(JSAny? o) =>
+      o.isA<web.HTMLCanvasElement>() ? o as web.HTMLCanvasElement : null;
+
+  static bool _isHTMLVideoElement(JSAny? o) => o.isA<web.HTMLVideoElement>();
+
+  static web.HTMLVideoElement? _castHTMLVideoElement(JSAny? o) =>
+      o.isA<web.HTMLVideoElement>() ? o as web.HTMLVideoElement : null;
+
+  static bool _isHTMLAudioElement(JSAny? o) => o.isA<web.HTMLAudioElement>();
+
+  static web.HTMLAudioElement? _castHTMLAudioElement(JSAny? o) =>
+      o.isA<web.HTMLAudioElement>() ? o as web.HTMLAudioElement : null;
+
+  static bool _isHTMLDialogElement(JSAny? o) => o.isA<web.HTMLDialogElement>();
+
+  static web.HTMLDialogElement? _castHTMLDialogElement(JSAny? o) =>
+      o.isA<web.HTMLDialogElement>() ? o as web.HTMLDialogElement : null;
+
+  static bool _isHTMLOutputElement(JSAny? o) => o.isA<web.HTMLOutputElement>();
+
+  static web.HTMLOutputElement? _castHTMLOutputElement(JSAny? o) =>
+      o.isA<web.HTMLOutputElement>() ? o as web.HTMLOutputElement : null;
+
+  static bool _isHTMLPictureElement(JSAny? o) =>
+      o.isA<web.HTMLPictureElement>();
+
+  static web.HTMLPictureElement? _castHTMLPictureElement(JSAny? o) =>
+      o.isA<web.HTMLPictureElement>() ? o as web.HTMLPictureElement : null;
+
+  static bool _isHTMLSourceElement(JSAny? o) => o.isA<web.HTMLSourceElement>();
+
+  static web.HTMLSourceElement? _castHTMLSourceElement(JSAny? o) =>
+      o.isA<web.HTMLSourceElement>() ? o as web.HTMLSourceElement : null;
+
+  static bool _isHTMLTrackElement(JSAny? o) => o.isA<web.HTMLTrackElement>();
+
+  static web.HTMLTrackElement? _castHTMLTrackElement(JSAny? o) =>
+      o.isA<web.HTMLTrackElement>() ? o as web.HTMLTrackElement : null;
+
+  static bool _isHTMLTableCaptionElement(JSAny? o) =>
+      o.isA<web.HTMLTableCaptionElement>();
+
+  static web.HTMLTableCaptionElement? _castHTMLTableCaptionElement(JSAny? o) =>
+      o.isA<web.HTMLTableCaptionElement>()
+          ? o as web.HTMLTableCaptionElement
+          : null;
+
+  static bool _isHTMLTableColElement(JSAny? o) =>
+      o.isA<web.HTMLTableColElement>();
+
+  static web.HTMLTableColElement? _castHTMLTableColElement(JSAny? o) =>
+      o.isA<web.HTMLTableColElement>() ? o as web.HTMLTableColElement : null;
+
+  static bool _isHTMLTableSectionElement(JSAny? o) =>
+      o.isA<web.HTMLTableSectionElement>();
+
+  static web.HTMLTableSectionElement? _castHTMLTableSectionElement(JSAny? o) =>
+      o.isA<web.HTMLTableSectionElement>()
+          ? o as web.HTMLTableSectionElement
+          : null;
+
+  static bool _isNotification(JSAny? o) => o.isA<web.Notification>();
+
+  static web.Notification? _castNotification(JSAny? o) =>
+      o.isA<web.Notification>() ? o as web.Notification : null;
+
   ///////////////////////
 
   final bool Function(JSAny? o) _isA;
@@ -315,6 +496,15 @@ enum Web<T> {
 
   @override
   String toString() => '`web` type `$name`';
+
+  bool get isSupported {
+    switch (this) {
+      case Notification:
+        return window['Notification'].isDefinedAndNotNull;
+      default:
+        return window[name].isDefinedAndNotNull;
+    }
+  }
 }
 
 extension ElementNullableExtension on Element? {
@@ -335,6 +525,8 @@ extension ElementNullableExtension on Element? {
 }
 
 extension ElementExtension on Element {
+  DOMTokenList? get classes => classList;
+
   String? get text => textContent?.toDartFix;
 
   set text(String? text) => textContent = text;
@@ -445,6 +637,8 @@ extension ElementExtension on Element {
 }
 
 extension HTMLElementExtension on HTMLElement {
+  DOMTokenList get classes => classList;
+
   static final DOMParser _domParser = DOMParser();
 
   List<Node> appendHTML(String html) {
@@ -682,6 +876,14 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
   HTMLTableCellElement appendCell() => insertCell(-1);
 }
 
+extension HTMLCanvasElementExtension on HTMLCanvasElement {
+  String toDataUrlPNG() => toDataUrl('image/png');
+
+  String toDataUrlJPEG() => toDataUrl('image/jpeg');
+
+  String toDataUrlWEBP() => toDataUrl('image/webp');
+}
+
 extension StorageExtension on Storage {
   bool get isEmpty => length == 0;
 
@@ -754,6 +956,12 @@ extension IDBRequestExtension on IDBRequest {
 
       if (!next) {
         completer.completeSafe(r);
+      } else {
+        if (cursor.isA<IDBCursor>()) {
+          // ignore: invalid_runtime_check_with_js_interop_types
+          var iDBCursor = cursor as IDBCursor;
+          iDBCursor.continue_();
+        }
       }
     }.toJS;
 
@@ -848,6 +1056,39 @@ extension WindowExtension on Window {
 
   Stream<TouchEvent> get onTouchLeaveEvent =>
       EventStreamProviders.touchLeaveEvent.forTarget(this);
+
+  Stream<Event> get onOnline =>
+      EventStreamProviders.onlineEvent.forTarget(this);
+
+  Stream<Event> get onOffline =>
+      EventStreamProviders.offlineEvent.forTarget(this);
+}
+
+extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
+  Stream<SpeechSynthesisEvent> get onEnd =>
+      EventStreamProviders.endEvent.forTarget(this);
+
+  Stream<SpeechSynthesisEvent> get onStart =>
+      EventStreamProviders.startEvent.forTarget(this);
+
+  Stream<Event> get onPause => EventStreamProviders.pauseEvent.forTarget(this);
+
+  Stream<SpeechSynthesisEvent> get onResume =>
+      EventStreamProviders.resumeEvent.forTarget(this);
+
+  Stream<SpeechSynthesisEvent> get onBoundary =>
+      EventStreamProviders.boundaryEvent.forTarget(this);
+
+  Stream<SpeechSynthesisEvent> get onMark =>
+      EventStreamProviders.markEvent.forTarget(this);
+
+  Stream<Event> get onError =>
+      EventStreamProviders.errorSpeechSynthesisUtteranceEvent.forTarget(this);
+}
+
+extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
 }
 
 extension DOMRectExtension on DOMRect {
@@ -865,5 +1106,54 @@ extension _CompleterExtension<T> on Completer<T> {
     if (!isCompleted) {
       completeError(error, stackTrace);
     }
+  }
+}
+
+extension GeolocationExtension on Geolocation {
+  Stream<GeolocationPosition> watchGeolocationPosition({
+    bool enableHighAccuracy = true,
+    Duration timeout = const Duration(seconds: 15),
+    Duration maximumAge = const Duration(minutes: 5),
+  }) {
+    final controller = StreamController<GeolocationPosition>();
+
+    watchPosition(
+      (GeolocationPosition geoPos) {
+        controller.add(geoPos);
+      }.toJS,
+      (GeolocationPositionError geoPosError) {
+        controller.addError(geoPosError);
+      }.toJS,
+      PositionOptions(
+          enableHighAccuracy: enableHighAccuracy,
+          timeout: timeout.inMilliseconds,
+          maximumAge: maximumAge.inMilliseconds),
+    );
+
+    var stream = controller.stream;
+    return stream;
+  }
+
+  Future<GeolocationPosition> getCurrentGeolocationPosition({
+    bool enableHighAccuracy = true,
+    Duration timeout = const Duration(seconds: 15),
+    Duration maximumAge = const Duration(minutes: 5),
+  }) {
+    var completer = Completer<GeolocationPosition>();
+
+    getCurrentPosition(
+      (GeolocationPosition geoPos) {
+        completer.completeSafe(geoPos);
+      }.toJS,
+      (GeolocationPositionError geoPosError) {
+        completer.completeErrorSafe(geoPosError);
+      }.toJS,
+      PositionOptions(
+          enableHighAccuracy: enableHighAccuracy,
+          timeout: timeout.inMilliseconds,
+          maximumAge: maximumAge.inMilliseconds),
+    );
+
+    return completer.future;
   }
 }

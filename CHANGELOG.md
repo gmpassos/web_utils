@@ -1,3 +1,25 @@
+## 1.0.7
+
+- `Web`:
+  - Added `isSupported`.
+  - Added `HTMLFormElement`, `HTMLLabelElement`, `HTMLParagraphElement`, `HTMLHeadingElement`, `HTMLUListElement`,
+    `HTMLOListElement`, `HTMLLIElement`, `HTMLIFrameElement`, `HTMLMetaElement`, `HTMLScriptElement`,
+    `HTMLStyleElement`, `HTMLCanvasElement`, `HTMLVideoElement`, `HTMLAudioElement`, `HTMLDialogElement`,
+    `HTMLOutputElement`, `HTMLPictureElement`, `HTMLSourceElement`, `HTMLTrackElement`, `HTMLTableCaptionElement`,
+    `HTMLTableColElement`, `HTMLTableSectionElement`, `Notification`.
+
+- `ElementExtension`:
+  - Added `classes` (alias to `classList`).
+
+- `IDBRequestExtension`:
+  - `process`: `if (cursor.isA<IDBCursor>())` call `iDBCursor.continue_()`.
+
+- `WindowExtension`:
+  - Added `onOnline` and `onOffline`.
+
+- New `HTMLCanvasElementExtension`, `SpeechSynthesisUtteranceExtension`,
+  `ServiceWorkerContainerExtension`, `GeolocationExtension`.
+
 ## 1.0.6
 
 - `NodeExtension`:
