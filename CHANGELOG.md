@@ -1,3 +1,8 @@
+## 1.0.9
+
+- `GeolocationExtension`:
+  - `watchGeolocationPosition`: call `clearWatch` when `Stream` is cancelled.
+
 ## 1.0.8
 
 - js_interop_utils: ^1.0.6

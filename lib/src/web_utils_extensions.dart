@@ -1117,7 +1117,7 @@ extension GeolocationExtension on Geolocation {
   }) {
     final controller = StreamController<GeolocationPosition>();
 
-    watchPosition(
+    final watchId = watchPosition(
       (GeolocationPosition geoPos) {
         controller.add(geoPos);
       }.toJS,
@@ -1129,6 +1129,10 @@ extension GeolocationExtension on Geolocation {
           timeout: timeout.inMilliseconds,
           maximumAge: maximumAge.inMilliseconds),
     );
+
+    controller.onCancel = () {
+      clearWatch(watchId);
+    };
 
     var stream = controller.stream;
     return stream;
