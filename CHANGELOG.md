@@ -1,3 +1,10 @@
+## 1.0.11
+
+✨♻️ refactor(web_utils_extensions):
+  - Standardize `selectNonTyped` and rename it to `select` (without the optional `webType` parameter).
+  - Standardize `selectNonTypedAll` and rename it to `selectAll` (without the optional `webType` parameter).
+  - Ensure that `selectTyped` exists where `querySelectorTyped` exists.
+
 ## 1.0.10
 
 ✨♻️ Improve query selector extension methods:
