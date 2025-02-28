@@ -1,7 +1,7 @@
 import 'package:web_utils/web_utils.dart';
 
 void main() {
-  var div = document.select<HTMLDivElement>('#output');
+  var div = document.selectTyped<HTMLDivElement>('#output', Web.HTMLDivElement);
 
   print(div?.text);
 

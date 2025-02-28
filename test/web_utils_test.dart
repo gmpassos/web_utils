@@ -21,11 +21,13 @@ void main() {
           ..classList.add('myDiv'),
       );
 
-      var div1 = document.select<HTMLDivElement>('#my-div1');
+      var div1 =
+          document.selectTyped<HTMLDivElement>('#my-div1', Web.HTMLDivElement);
       expect(div1, isNotNull);
       //expect(div1!.isA<HTMLDivElement>, isTrue);
 
-      var div2 = document.select<HTMLDivElement>('#my-div2');
+      var div2 =
+          document.selectTyped<HTMLDivElement>('#my-div2', Web.HTMLDivElement);
       expect(div2, isNotNull);
       //expect(div2!.isA<HTMLDivElement>, isTrue);
     });
