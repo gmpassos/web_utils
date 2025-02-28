@@ -1,3 +1,13 @@
+## 1.0.10
+
+✨♻️ Improve query selector extension methods:
+
+- Add new query selector methods for non-typed and typed elements.
+- Provide aliases to querySelector and querySelectorAll with and without type.
+- Refactor existing methods for cleaner implementation and readability.
+
+- web: ^1.1.1
+
 ## 1.0.9
 
 - `GeolocationExtension`:

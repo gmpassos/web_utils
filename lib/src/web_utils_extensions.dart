@@ -76,6 +76,11 @@ extension IterableNodeExtension on Iterable<Node> {
 }
 
 extension DocumentExtension on Document {
+  Element? selectNonTyped(String selectors) => querySelectorNonTyped(selectors);
+
+  T? selectTyped<T extends Element>(String selectors, Web<T> webType) =>
+      querySelectorTyped<T>(selectors, webType);
+
   T? select<T extends Element>(String selectors, [Web<T>? webType]) {
     var o = document.querySelector(selectors);
 
@@ -86,6 +91,12 @@ extension DocumentExtension on Document {
     }
   }
 
+  List<Element> selectAllNonTyped(String selectors) =>
+      querySelectorAllNonTyped(selectors);
+
+  List<T> selectAllTyped<T extends Element>(String selectors, Web<T> webType) =>
+      querySelectorAllTyped(selectors, webType);
+
   List<T> selectAll<T extends Element>(String selectors, [Web<T>? webType]) {
     var l = document.querySelectorAll(selectors).whereElement();
 
@@ -94,6 +105,24 @@ extension DocumentExtension on Document {
     } else {
       return l.nonNulls.cast<T>().toList();
     }
+  }
+
+  Element? querySelectorNonTyped(String selectors) =>
+      document.querySelector(selectors);
+
+  T? querySelectorTyped<T extends Element>(String selectors, Web<T> webType) {
+    var o = document.querySelector(selectors);
+    return o?.asElementOf<T>(webType);
+  }
+
+  List<Element> querySelectorAllNonTyped(String selectors) {
+    return document.querySelectorAll(selectors).whereElement().toList();
+  }
+
+  List<T> querySelectorAllTyped<T extends Element>(
+      String selectors, Web<T> webType) {
+    var l = document.querySelectorAll(selectors).whereElement();
+    return l.map((e) => e.asElementOf<T>(webType)).nonNulls.toList();
   }
 }
 
@@ -536,14 +565,26 @@ extension ElementExtension on Element {
   HTMLElement? get asHTMLElementChecked =>
       isA<HTMLElement>() ? this as HTMLElement : null;
 
-  /// Alias to [document.querySelector] casting to [T].
+  /// Alias to [document.querySelector].
+  Element? querySelectorNonTyped(String selectors) {
+    var self = this;
+    return self.querySelector(selectors);
+  }
+
+  /// Alias to [document.querySelector] filtering by [webType] and casting to [T].
   T? querySelectorTyped<T extends Element>(String selectors, Web<T> webType) {
     var self = this;
     var elem = self.querySelector(selectors);
     return elem.isElementOf<T>(webType) ? elem as T? : null;
   }
 
-  /// Alias to [querySelectorAll] casting elements to [T].
+  /// Alias to [querySelectorAll].
+  List<Element> querySelectorAllNonTyped(String selectors, Web webType) {
+    var self = this;
+    return self.querySelectorAll(selectors).whereElement().toList();
+  }
+
+  /// Alias to [querySelectorAll] filtering by [webType] and casting elements to [T].
   List<T> querySelectorAllTyped<T extends Element>(
       String selectors, Web<T> webType) {
     var self = this;
