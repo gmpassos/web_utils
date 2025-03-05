@@ -1,3 +1,12 @@
+## 1.0.12
+
+- `HTMLCanvasElementExtension`:
+  - Added `asBlob`.
+
+- `WindowExtension`:
+  - Added `onKeyUp`, `onClick`, `onMouseDown`, `onMouseUp`, `onMouseMove`, `onWheel`, `onScroll`,
+    `onFocus`, `onBlur`, `onBeforeUnload`, `onStorage`, `onDeviceMotion`, `onTouchEnd`, `onTouchCancel`.
+
 ## 1.0.11
 
 ✨♻️ refactor(web_utils_extensions):

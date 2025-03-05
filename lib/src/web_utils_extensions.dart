@@ -918,6 +918,25 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   String toDataUrlJPEG() => toDataUrl('image/jpeg');
 
   String toDataUrlWEBP() => toDataUrl('image/webp');
+
+  Future<Blob> asBlob({String? type, double? quality}) async {
+    var completer = Completer<Blob>();
+
+    var callback = (Blob blob) {
+      completer.complete(blob);
+    }.toJS;
+
+    if (quality != null) {
+      type ??= 'image/png';
+      toBlob(callback, type, quality.toJS);
+    } else if (type != null) {
+      toBlob(callback, type);
+    } else {
+      toBlob(callback);
+    }
+
+    return completer.future;
+  }
 }
 
 extension StorageExtension on Storage {
@@ -1098,6 +1117,46 @@ extension WindowExtension on Window {
 
   Stream<Event> get onOffline =>
       EventStreamProviders.offlineEvent.forTarget(this);
+
+  Stream<KeyboardEvent> get onKeyUp =>
+      EventStreamProviders.keyUpEvent.forTarget(this);
+
+  Stream<MouseEvent> get onClick =>
+      EventStreamProviders.clickEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseDown =>
+      EventStreamProviders.mouseDownEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseUp =>
+      EventStreamProviders.mouseUpEvent.forTarget(this);
+
+  Stream<MouseEvent> get onMouseMove =>
+      EventStreamProviders.mouseMoveEvent.forTarget(this);
+
+  Stream<WheelEvent> get onWheel =>
+      EventStreamProviders.wheelEvent.forTarget(this);
+
+  Stream<Event> get onScroll =>
+      EventStreamProviders.scrollEvent.forTarget(this);
+
+  Stream<Event> get onFocus => EventStreamProviders.focusEvent.forTarget(this);
+
+  Stream<Event> get onBlur => EventStreamProviders.blurEvent.forTarget(this);
+
+  Stream<Event> get onBeforeUnload =>
+      EventStreamProviders.beforeUnloadEvent.forTarget(this);
+
+  Stream<StorageEvent> get onStorage =>
+      EventStreamProviders.storageEvent.forTarget(this);
+
+  Stream<DeviceMotionEvent> get onDeviceMotion =>
+      EventStreamProviders.deviceMotionEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchEnd =>
+      EventStreamProviders.touchEndEvent.forTarget(this);
+
+  Stream<TouchEvent> get onTouchCancel =>
+      EventStreamProviders.touchCancelEvent.forTarget(this);
 }
 
 extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
