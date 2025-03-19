@@ -1,3 +1,7 @@
+## 1.0.13
+
+- js_interop_utils: ^1.0.7
+
 ## 1.0.12
 
 - `HTMLCanvasElementExtension`:
