@@ -5,8 +5,8 @@ import 'package:test/test.dart';
 import 'package:web_utils/web_utils.dart';
 
 void main() {
-  group('', () {
-    test('', () {
+  group('web', () {
+    test('basic', () {
       var body = document.body!;
 
       body.appendChild(
@@ -24,12 +24,12 @@ void main() {
       var div1 =
           document.selectTyped<HTMLDivElement>('#my-div1', Web.HTMLDivElement);
       expect(div1, isNotNull);
-      //expect(div1!.isA<HTMLDivElement>, isTrue);
+      expect(div1.isA<HTMLDivElement>(), isTrue);
 
       var div2 =
           document.selectTyped<HTMLDivElement>('#my-div2', Web.HTMLDivElement);
       expect(div2, isNotNull);
-      //expect(div2!.isA<HTMLDivElement>, isTrue);
+      expect(div2.isA<HTMLDivElement>(), isTrue);
     });
   });
 }

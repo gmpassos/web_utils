@@ -1,3 +1,13 @@
+## 1.0.14
+
+- New `web_utils_type_checks.dart`: optimized DOM type checking extensions:
+  - New `JSAnyDOMTypeChecks`, `JSObjectDOMTypeChecksNullable`.
+  - New `JSAnyDOMTypeChecks`, `JSAnyDOMTypeChecksNullable`.
+
+- `Web`:
+  - Added `Node` and `Text`.
+  - Use optimized DOM type check.
+
 ## 1.0.13
 
 - js_interop_utils: ^1.0.7
