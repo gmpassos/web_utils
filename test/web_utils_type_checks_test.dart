@@ -16,6 +16,8 @@ void _domTypeChecks(bool cached) {
   JSAnyDOMTypeChecks.cached = cached;
 
   try {
+    expect(JSAnyDOMTypeChecks.cached, equals(cached));
+
     expect(HTMLElement.article().isHTMLElement, isTrue);
     expect(HTMLElement.section().isHTMLElement, isTrue);
 
@@ -132,5 +134,6 @@ void _domTypeChecks(bool cached) {
   } finally {
     // Default:
     JSAnyDOMTypeChecks.cached = true;
+    expect(JSAnyDOMTypeChecks.cached, isTrue);
   }
 }
