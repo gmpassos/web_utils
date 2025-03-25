@@ -7,12 +7,18 @@ import 'package:web_utils/web_utils.dart';
 
 void main() {
   group('DOM Types', () {
-    test('checks (cached)', () => _domTypeChecks(true));
-    test('checks (uncached)', () => _domTypeChecks(false));
+    test('checks (cached)', () {
+      var cached = _domTypeChecks(true);
+      expect(cached, isTrue);
+    });
+    test('checks (uncached)', () {
+      var cached = _domTypeChecks(false);
+      expect(cached, isFalse);
+    });
   });
 }
 
-void _domTypeChecks(bool cached) {
+bool _domTypeChecks(bool cached) {
   JSAnyDOMTypeChecks.cached = cached;
 
   try {
@@ -131,6 +137,8 @@ void _domTypeChecks(bool cached) {
 
     expect(HTMLTableSectionElement.tfoot().isHTMLTableSectionElement, isTrue);
     expect(HTMLDivElement().isHTMLTableSectionElement, isFalse);
+
+    return JSAnyDOMTypeChecks.cached;
   } finally {
     // Default:
     JSAnyDOMTypeChecks.cached = true;
