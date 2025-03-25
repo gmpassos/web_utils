@@ -5,20 +5,14 @@ import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart' as web;
 import 'package:web/web.dart' hide querySelector;
 
+import 'web_utils_type_checks.dart';
+
 extension WebObjectExtension on Object? {
   bool get isNode => asJSAny.isNode;
 
   bool get isElement => asJSAny.isElement;
 
   bool get isHTMLElement => asJSAny.isHTMLElement;
-}
-
-extension WebJSAnyExtension on JSAny? {
-  bool get isNode => isA<Node>();
-
-  bool get isElement => isA<Element>();
-
-  bool get isHTMLElement => isA<HTMLElement>();
 }
 
 extension JSObjectWebExtension on JSObject? {
@@ -199,6 +193,10 @@ extension NodeExtension on Node {
 
 enum Web<T> {
   // ignore: constant_identifier_names
+  Node<web.Node>(_isNode, _castNode),
+  // ignore: constant_identifier_names
+  Text<web.Node>(_isText, _castText),
+  // ignore: constant_identifier_names
   Element<web.Element>(_isElement, _castElement),
   // ignore: constant_identifier_names
   HTMLElement(_isHTMLElement, _castHTMLElement),
@@ -214,6 +212,8 @@ enum Web<T> {
   HTMLInputElement(_isHTMLInputElement, _castHTMLInputElement),
   // ignore: constant_identifier_names
   HTMLSelectElement(_isHTMLSelectElement, _castHTMLSelectElement),
+  // ignore: constant_identifier_names
+  HTMLOptionElement(_isHTMLOptionElement, _castHTMLOptionElement),
   // ignore: constant_identifier_names
   HTMLAnchorElement(_isHTMLAnchorElement, _castHTMLAnchorElement),
   // ignore: constant_identifier_names
@@ -278,198 +278,205 @@ enum Web<T> {
 
   /////////////////
 
-  static bool _isElement(JSAny? o) => o.isA<web.Element>();
+  static bool get cachedDOMTypesChecks => JSAnyDOMTypeChecks.cached;
+
+  static set cachedDOMTypesChecks(bool cached) =>
+      JSAnyDOMTypeChecks.cached = cached;
+
+  static bool _isNode(JSAny? o) => o.isNode;
+
+  static web.Node? _castNode(JSAny? o) => o.isNode ? o as web.Node : null;
+
+  static bool _isText(JSAny? o) => o.isText;
+
+  static web.Text? _castText(JSAny? o) => o.isText ? o as web.Text : null;
+
+  static bool _isElement(JSAny? o) => o.isElement;
 
   static web.Element? _castElement(JSAny? o) =>
-      o.isA<web.Element>() ? o as web.Element : null;
+      o.isElement ? o as web.Element : null;
 
-  static bool _isHTMLElement(JSAny? o) => o.isA<web.HTMLElement>();
+  static bool _isHTMLElement(JSAny? o) => o.isHTMLElement;
 
   static web.HTMLElement? _castHTMLElement(JSAny? o) =>
-      o.isA<web.HTMLElement>() ? o as web.HTMLElement : null;
+      o.isHTMLElement ? o as web.HTMLElement : null;
 
-  static bool _isHTMLDivElement(JSAny? o) => o.isA<web.HTMLDivElement>();
+  static bool _isHTMLDivElement(JSAny? o) => o.isHTMLDivElement;
 
   static web.HTMLDivElement? _castHTMLDivElement(JSAny? o) =>
-      o.isA<web.HTMLDivElement>() ? o as web.HTMLDivElement : null;
+      o.isHTMLDivElement ? o as web.HTMLDivElement : null;
 
-  static bool _isHTMLLinkElement(JSAny? o) => o.isA<web.HTMLLinkElement>();
+  static bool _isHTMLLinkElement(JSAny? o) => o.isHTMLLinkElement;
 
   static web.HTMLLinkElement? _castHTMLLinkElement(JSAny? o) =>
-      o.isA<web.HTMLLinkElement>() ? o as web.HTMLLinkElement : null;
+      o.isHTMLLinkElement ? o as web.HTMLLinkElement : null;
 
-  static bool _isHTMLButtonElement(JSAny? o) => o.isA<web.HTMLButtonElement>();
+  static bool _isHTMLButtonElement(JSAny? o) => o.isHTMLButtonElement;
 
   static web.HTMLButtonElement? _castHTMLButtonElement(JSAny? o) =>
-      o.isA<web.HTMLButtonElement>() ? o as web.HTMLButtonElement : null;
+      o.isHTMLButtonElement ? o as web.HTMLButtonElement : null;
 
-  static bool _isHTMLTextAreaElement(JSAny? o) =>
-      o.isA<web.HTMLTextAreaElement>();
+  static bool _isHTMLTextAreaElement(JSAny? o) => o.isHTMLTextAreaElement;
 
   static web.HTMLTextAreaElement? _castHTMLTextAreaElement(JSAny? o) =>
-      o.isA<web.HTMLTextAreaElement>() ? o as web.HTMLTextAreaElement : null;
+      o.isHTMLTextAreaElement ? o as web.HTMLTextAreaElement : null;
 
-  static bool _isHTMLInputElement(JSAny? o) => o.isA<web.HTMLInputElement>();
+  static bool _isHTMLInputElement(JSAny? o) => o.isHTMLInputElement;
 
   static web.HTMLInputElement? _castHTMLInputElement(JSAny? o) =>
-      o.isA<web.HTMLInputElement>() ? o as web.HTMLInputElement : null;
+      o.isHTMLInputElement ? o as web.HTMLInputElement : null;
 
-  static bool _isHTMLSelectElement(JSAny? o) => o.isA<web.HTMLSelectElement>();
+  static bool _isHTMLSelectElement(JSAny? o) => o.isHTMLSelectElement;
 
   static web.HTMLSelectElement? _castHTMLSelectElement(JSAny? o) =>
-      o.isA<web.HTMLSelectElement>() ? o as web.HTMLSelectElement : null;
+      o.isHTMLSelectElement ? o as web.HTMLSelectElement : null;
 
-  static bool _isHTMLAnchorElement(JSAny? o) => o.isA<web.HTMLAnchorElement>();
+  static bool _isHTMLOptionElement(JSAny? o) => o.isHTMLOptionElement;
+
+  static web.HTMLOptionElement? _castHTMLOptionElement(JSAny? o) =>
+      o.isHTMLOptionElement ? o as web.HTMLOptionElement : null;
+
+  static bool _isHTMLAnchorElement(JSAny? o) => o.isHTMLAnchorElement;
 
   static web.HTMLAnchorElement? _castHTMLAnchorElement(JSAny? o) =>
-      o.isA<web.HTMLAnchorElement>() ? o as web.HTMLAnchorElement : null;
+      o.isHTMLAnchorElement ? o as web.HTMLAnchorElement : null;
 
-  static bool _isHTMLImageElement(JSAny? o) => o.isA<web.HTMLImageElement>();
+  static bool _isHTMLImageElement(JSAny? o) => o.isHTMLImageElement;
 
   static web.HTMLImageElement? _castHTMLImageElement(JSAny? o) =>
-      o.isA<web.HTMLImageElement>() ? o as web.HTMLImageElement : null;
+      o.isHTMLImageElement ? o as web.HTMLImageElement : null;
 
-  static bool _isHTMLSpanElement(JSAny? o) => o.isA<web.HTMLSpanElement>();
+  static bool _isHTMLSpanElement(JSAny? o) => o.isHTMLSpanElement;
 
   static web.HTMLSpanElement? _castHTMLSpanElement(JSAny? o) =>
-      o.isA<web.HTMLSpanElement>() ? o as web.HTMLSpanElement : null;
+      o.isHTMLSpanElement ? o as web.HTMLSpanElement : null;
 
-  static bool _isHTMLTableElement(JSAny? o) => o.isA<web.HTMLTableElement>();
+  static bool _isHTMLTableElement(JSAny? o) => o.isHTMLTableElement;
 
   static web.HTMLTableElement? _castHTMLTableElement(JSAny? o) =>
-      o.isA<web.HTMLTableElement>() ? o as web.HTMLTableElement : null;
+      o.isHTMLTableElement ? o as web.HTMLTableElement : null;
 
-  static bool _isHTMLTableRowElement(JSAny? o) =>
-      o.isA<web.HTMLTableRowElement>();
+  static bool _isHTMLTableRowElement(JSAny? o) => o.isHTMLTableRowElement;
 
   static web.HTMLTableRowElement? _castHTMLTableRowElement(JSAny? o) =>
-      o.isA<web.HTMLTableRowElement>() ? o as web.HTMLTableRowElement : null;
+      o.isHTMLTableRowElement ? o as web.HTMLTableRowElement : null;
 
-  static bool _isHTMLTableCellElement(JSAny? o) =>
-      o.isA<web.HTMLTableCellElement>();
+  static bool _isHTMLTableCellElement(JSAny? o) => o.isHTMLTableCellElement;
 
   static web.HTMLTableCellElement? _castHTMLTableCellElement(JSAny? o) =>
-      o.isA<web.HTMLTableCellElement>() ? o as web.HTMLTableCellElement : null;
+      o.isHTMLTableCellElement ? o as web.HTMLTableCellElement : null;
 
-  static bool _isHTMLFormElement(JSAny? o) => o.isA<web.HTMLFormElement>();
+  static bool _isHTMLFormElement(JSAny? o) => o.isHTMLFormElement;
 
   static web.HTMLFormElement? _castHTMLFormElement(JSAny? o) =>
-      o.isA<web.HTMLFormElement>() ? o as web.HTMLFormElement : null;
+      o.isHTMLFormElement ? o as web.HTMLFormElement : null;
 
-  static bool _isHTMLLabelElement(JSAny? o) => o.isA<web.HTMLLabelElement>();
+  static bool _isHTMLLabelElement(JSAny? o) => o.isHTMLLabelElement;
 
   static web.HTMLLabelElement? _castHTMLLabelElement(JSAny? o) =>
-      o.isA<web.HTMLLabelElement>() ? o as web.HTMLLabelElement : null;
+      o.isHTMLLabelElement ? o as web.HTMLLabelElement : null;
 
-  static bool _isHTMLParagraphElement(JSAny? o) =>
-      o.isA<web.HTMLParagraphElement>();
+  static bool _isHTMLParagraphElement(JSAny? o) => o.isHTMLParagraphElement;
 
   static web.HTMLParagraphElement? _castHTMLParagraphElement(JSAny? o) =>
-      o.isA<web.HTMLParagraphElement>() ? o as web.HTMLParagraphElement : null;
+      o.isHTMLParagraphElement ? o as web.HTMLParagraphElement : null;
 
-  static bool _isHTMLHeadingElement(JSAny? o) =>
-      o.isA<web.HTMLHeadingElement>();
+  static bool _isHTMLHeadingElement(JSAny? o) => o.isHTMLHeadingElement;
 
   static web.HTMLHeadingElement? _castHTMLHeadingElement(JSAny? o) =>
-      o.isA<web.HTMLHeadingElement>() ? o as web.HTMLHeadingElement : null;
+      o.isHTMLHeadingElement ? o as web.HTMLHeadingElement : null;
 
-  static bool _isHTMLUListElement(JSAny? o) => o.isA<web.HTMLUListElement>();
+  static bool _isHTMLUListElement(JSAny? o) => o.isHTMLUListElement;
 
   static web.HTMLUListElement? _castHTMLUListElement(JSAny? o) =>
-      o.isA<web.HTMLUListElement>() ? o as web.HTMLUListElement : null;
+      o.isHTMLUListElement ? o as web.HTMLUListElement : null;
 
-  static bool _isHTMLOListElement(JSAny? o) => o.isA<web.HTMLOListElement>();
+  static bool _isHTMLOListElement(JSAny? o) => o.isHTMLOListElement;
 
   static web.HTMLOListElement? _castHTMLOListElement(JSAny? o) =>
-      o.isA<web.HTMLOListElement>() ? o as web.HTMLOListElement : null;
+      o.isHTMLOListElement ? o as web.HTMLOListElement : null;
 
-  static bool _isHTMLLIElement(JSAny? o) => o.isA<web.HTMLLIElement>();
+  static bool _isHTMLLIElement(JSAny? o) => o.isHTMLLIElement;
 
   static web.HTMLLIElement? _castHTMLLIElement(JSAny? o) =>
-      o.isA<web.HTMLLIElement>() ? o as web.HTMLLIElement : null;
+      o.isHTMLLIElement ? o as web.HTMLLIElement : null;
 
-  static bool _isHTMLIFrameElement(JSAny? o) => o.isA<web.HTMLIFrameElement>();
+  static bool _isHTMLIFrameElement(JSAny? o) => o.isHTMLIFrameElement;
 
   static web.HTMLIFrameElement? _castHTMLIFrameElement(JSAny? o) =>
-      o.isA<web.HTMLIFrameElement>() ? o as web.HTMLIFrameElement : null;
+      o.isHTMLIFrameElement ? o as web.HTMLIFrameElement : null;
 
-  static bool _isHTMLMetaElement(JSAny? o) => o.isA<web.HTMLMetaElement>();
+  static bool _isHTMLMetaElement(JSAny? o) => o.isHTMLMetaElement;
 
   static web.HTMLMetaElement? _castHTMLMetaElement(JSAny? o) =>
-      o.isA<web.HTMLMetaElement>() ? o as web.HTMLMetaElement : null;
+      o.isHTMLMetaElement ? o as web.HTMLMetaElement : null;
 
-  static bool _isHTMLScriptElement(JSAny? o) => o.isA<web.HTMLScriptElement>();
+  static bool _isHTMLScriptElement(JSAny? o) => o.isHTMLScriptElement;
 
   static web.HTMLScriptElement? _castHTMLScriptElement(JSAny? o) =>
-      o.isA<web.HTMLScriptElement>() ? o as web.HTMLScriptElement : null;
+      o.isHTMLScriptElement ? o as web.HTMLScriptElement : null;
 
-  static bool _isHTMLStyleElement(JSAny? o) => o.isA<web.HTMLStyleElement>();
+  static bool _isHTMLStyleElement(JSAny? o) => o.isHTMLStyleElement;
 
   static web.HTMLStyleElement? _castHTMLStyleElement(JSAny? o) =>
-      o.isA<web.HTMLStyleElement>() ? o as web.HTMLStyleElement : null;
+      o.isHTMLStyleElement ? o as web.HTMLStyleElement : null;
 
-  static bool _isHTMLCanvasElement(JSAny? o) => o.isA<web.HTMLCanvasElement>();
+  static bool _isHTMLCanvasElement(JSAny? o) => o.isHTMLCanvasElement;
 
   static web.HTMLCanvasElement? _castHTMLCanvasElement(JSAny? o) =>
-      o.isA<web.HTMLCanvasElement>() ? o as web.HTMLCanvasElement : null;
+      o.isHTMLCanvasElement ? o as web.HTMLCanvasElement : null;
 
-  static bool _isHTMLVideoElement(JSAny? o) => o.isA<web.HTMLVideoElement>();
+  static bool _isHTMLVideoElement(JSAny? o) => o.isHTMLVideoElement;
 
   static web.HTMLVideoElement? _castHTMLVideoElement(JSAny? o) =>
-      o.isA<web.HTMLVideoElement>() ? o as web.HTMLVideoElement : null;
+      o.isHTMLVideoElement ? o as web.HTMLVideoElement : null;
 
-  static bool _isHTMLAudioElement(JSAny? o) => o.isA<web.HTMLAudioElement>();
+  static bool _isHTMLAudioElement(JSAny? o) => o.isHTMLAudioElement;
 
   static web.HTMLAudioElement? _castHTMLAudioElement(JSAny? o) =>
-      o.isA<web.HTMLAudioElement>() ? o as web.HTMLAudioElement : null;
+      o.isHTMLAudioElement ? o as web.HTMLAudioElement : null;
 
-  static bool _isHTMLDialogElement(JSAny? o) => o.isA<web.HTMLDialogElement>();
+  static bool _isHTMLDialogElement(JSAny? o) => o.isHTMLDialogElement;
 
   static web.HTMLDialogElement? _castHTMLDialogElement(JSAny? o) =>
-      o.isA<web.HTMLDialogElement>() ? o as web.HTMLDialogElement : null;
+      o.isHTMLDialogElement ? o as web.HTMLDialogElement : null;
 
-  static bool _isHTMLOutputElement(JSAny? o) => o.isA<web.HTMLOutputElement>();
+  static bool _isHTMLOutputElement(JSAny? o) => o.isHTMLOutputElement;
 
   static web.HTMLOutputElement? _castHTMLOutputElement(JSAny? o) =>
-      o.isA<web.HTMLOutputElement>() ? o as web.HTMLOutputElement : null;
+      o.isHTMLOutputElement ? o as web.HTMLOutputElement : null;
 
-  static bool _isHTMLPictureElement(JSAny? o) =>
-      o.isA<web.HTMLPictureElement>();
+  static bool _isHTMLPictureElement(JSAny? o) => o.isHTMLPictureElement;
 
   static web.HTMLPictureElement? _castHTMLPictureElement(JSAny? o) =>
-      o.isA<web.HTMLPictureElement>() ? o as web.HTMLPictureElement : null;
+      o.isHTMLPictureElement ? o as web.HTMLPictureElement : null;
 
-  static bool _isHTMLSourceElement(JSAny? o) => o.isA<web.HTMLSourceElement>();
+  static bool _isHTMLSourceElement(JSAny? o) => o.isHTMLSourceElement;
 
   static web.HTMLSourceElement? _castHTMLSourceElement(JSAny? o) =>
-      o.isA<web.HTMLSourceElement>() ? o as web.HTMLSourceElement : null;
+      o.isHTMLSourceElement ? o as web.HTMLSourceElement : null;
 
-  static bool _isHTMLTrackElement(JSAny? o) => o.isA<web.HTMLTrackElement>();
+  static bool _isHTMLTrackElement(JSAny? o) => o.isHTMLTrackElement;
 
   static web.HTMLTrackElement? _castHTMLTrackElement(JSAny? o) =>
-      o.isA<web.HTMLTrackElement>() ? o as web.HTMLTrackElement : null;
+      o.isHTMLTrackElement ? o as web.HTMLTrackElement : null;
 
   static bool _isHTMLTableCaptionElement(JSAny? o) =>
-      o.isA<web.HTMLTableCaptionElement>();
+      o.isHTMLTableCaptionElement;
 
   static web.HTMLTableCaptionElement? _castHTMLTableCaptionElement(JSAny? o) =>
-      o.isA<web.HTMLTableCaptionElement>()
-          ? o as web.HTMLTableCaptionElement
-          : null;
+      o.isHTMLTableCaptionElement ? o as web.HTMLTableCaptionElement : null;
 
-  static bool _isHTMLTableColElement(JSAny? o) =>
-      o.isA<web.HTMLTableColElement>();
+  static bool _isHTMLTableColElement(JSAny? o) => o.isHTMLTableColElement;
 
   static web.HTMLTableColElement? _castHTMLTableColElement(JSAny? o) =>
-      o.isA<web.HTMLTableColElement>() ? o as web.HTMLTableColElement : null;
+      o.isHTMLTableColElement ? o as web.HTMLTableColElement : null;
 
   static bool _isHTMLTableSectionElement(JSAny? o) =>
-      o.isA<web.HTMLTableSectionElement>();
+      o.isHTMLTableSectionElement;
 
   static web.HTMLTableSectionElement? _castHTMLTableSectionElement(JSAny? o) =>
-      o.isA<web.HTMLTableSectionElement>()
-          ? o as web.HTMLTableSectionElement
-          : null;
+      o.isHTMLTableSectionElement ? o as web.HTMLTableSectionElement : null;
 
   static bool _isNotification(JSAny? o) => o.isA<web.Notification>();
 
