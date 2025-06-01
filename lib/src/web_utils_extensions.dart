@@ -644,7 +644,19 @@ extension ElementExtension on Element {
     return false;
   }
 
-  CSSStyleDeclaration? get style => asHTMLElementChecked?.style;
+  CSSStyleDeclaration? get style {
+    if (isA<HTMLElement>()) {
+      var htmlElement = this as HTMLElement;
+      return htmlElement.style;
+    } else if (isA<SVGElement>()) {
+      var svgElement = this as SVGElement;
+      return svgElement.style;
+    } else if (isA<MathMLElement>()) {
+      var mathMlElement = this as MathMLElement;
+      return mathMlElement.style;
+    }
+    return null;
+  }
 
   bool get hidden => asHTMLElementChecked?.hidden?.dartify() == true;
 
@@ -858,13 +870,15 @@ extension HTMLCollectionExtension on HTMLCollection {
   bool get isNotEmpty => !isEmpty;
 
   int indexOf(Element element) {
-    var i = 0;
-    for (var e in toIterable()) {
+    final length = this.length;
+
+    for (var i = 0; i < length; ++i) {
+      var e = item(i);
       if (e == element) {
         return i;
       }
-      i++;
     }
+
     return -1;
   }
 }

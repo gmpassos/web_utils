@@ -3,6 +3,9 @@
 - `web_utils_extensions`:
   - ♻️ Optimize `indexOf`.
 
+- `Element`:
+  - ♻️ Enhance `style` getter with support for `SVGElement` and `MathMLElement`.
+
 - js_interop_utils: ^1.0.8
 
 - test: ^1.26.2
