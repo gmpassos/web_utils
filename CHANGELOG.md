@@ -1,3 +1,12 @@
+## 1.0.15
+
+- `web_utils_extensions`:
+  - ♻️ Optimize `indexOf`.
+
+- js_interop_utils: ^1.0.8
+
+- test: ^1.26.2
+
 ## 1.0.14
 
 - New `web_utils_type_checks.dart`: optimized DOM type checking extensions:

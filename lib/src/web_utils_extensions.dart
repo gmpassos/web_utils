@@ -896,13 +896,15 @@ extension NodeListExtension on NodeList {
   bool get isNotEmpty => !isEmpty;
 
   int indexOf(Node node) {
-    var i = 0;
-    for (var e in toIterable()) {
+    final length = this.length;
+
+    for (var i = 0; i < length; ++i) {
+      var e = item(i);
       if (e == node) {
         return i;
       }
-      i++;
     }
+
     return -1;
   }
 }
