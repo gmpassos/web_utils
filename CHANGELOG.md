@@ -1,3 +1,10 @@
+## 1.0.16
+
+- js_interop_utils: ^1.0.9
+
+- test: ^1.26.3
+- dependency_validator: ^5.0.3
+
 ## 1.0.15
 
 - `web_utils_extensions`:
