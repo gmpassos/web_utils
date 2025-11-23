@@ -1279,3 +1279,13 @@ extension GeolocationExtension on Geolocation {
     return completer.future;
   }
 }
+
+extension KeyboardEventExtension on KeyboardEvent {
+  int? get keyCodeSafe {
+    try {
+      return keyCode;
+    } catch (_) {
+      return null;
+    }
+  }
+}

@@ -1,3 +1,10 @@
+## 1.0.17
+
+- New `KeyboardEventExtension`:
+    - getter `keyCodeSafe`.
+
+- test: ^1.28.0
+
 ## 1.0.16
 
 - js_interop_utils: ^1.0.9
