@@ -1,7 +1,17 @@
 ## 1.0.17
 
-- New `KeyboardEventExtension`:
-    - getter `keyCodeSafe`.
+- New `KeyboardEventExtension` with unified key handling, including modern `.key`
+  detection and legacy `.keyCode` fallback:
+    - Added getters:
+        - `keyCodeSafe`
+        - `isKeyTabOrEnter`
+        - `isKeyTab`
+        - `isKeyEnter`
+        - `isKeySpace`
+        - `isKeyEscape`
+        - `isArrowUp`, `isArrowDown`, `isArrowLeft`, `isArrowRight`
+        - `isArrowKey`
+        - `isNavigationKey`
 
 - test: ^1.28.0
 

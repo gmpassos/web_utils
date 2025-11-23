@@ -1281,6 +1281,7 @@ extension GeolocationExtension on Geolocation {
 }
 
 extension KeyboardEventExtension on KeyboardEvent {
+  /// Safe access to legacy `keyCode` (may throw in some browsers).
   int? get keyCodeSafe {
     try {
       return keyCode;
@@ -1288,4 +1289,41 @@ extension KeyboardEventExtension on KeyboardEvent {
       return null;
     }
   }
+
+  /// Normalized [key] as lower-case.
+  String get keyLC => key.toLowerCase();
+
+  /// Generic matcher: modern `key` first, fallback to legacy `keyCode`.
+  bool _match(String name, int code) {
+    if (keyLC == name) return true;
+    return keyCodeSafe == code;
+  }
+
+  // ---- Individual Key Checks ----
+
+  bool get isKeyTab => _match('tab', 9);
+
+  bool get isKeyEnter => _match('enter', 13);
+
+  bool get isKeySpace =>
+      _match(' ', 32) || _match('space', 32) || _match('spacebar', 32);
+
+  bool get isKeyEscape => _match('escape', 27) || _match('esc', 27);
+
+  bool get isArrowUp => _match('arrowup', 38);
+
+  bool get isArrowDown => _match('arrowdown', 40);
+
+  bool get isArrowLeft => _match('arrowleft', 37);
+
+  bool get isArrowRight => _match('arrowright', 39);
+
+  // ---- Grouped Checks ----
+
+  bool get isKeyTabOrEnter => isKeyTab || isKeyEnter;
+
+  bool get isArrowKey =>
+      isArrowUp || isArrowDown || isArrowLeft || isArrowRight;
+
+  bool get isNavigationKey => isKeyTabOrEnter || isArrowKey || isKeyEscape;
 }
