@@ -1,3 +1,11 @@
+## 1.0.18
+
+- `ElementNullableExtension`:
+  - Added `asElementOfNullable`.
+
+- `DocumentExtension`:
+  - `querySelectorTyped`, `querySelectorAllTyped`: use `ElementNullableExtension`.
+
 ## 1.0.17
 
 - New `KeyboardEventExtension` with unified key handling, including modern `.key`

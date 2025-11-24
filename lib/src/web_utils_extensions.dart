@@ -86,7 +86,7 @@ extension DocumentExtension on Document {
 
   T? querySelectorTyped<T extends Element>(String selectors, Web<T> webType) {
     var o = document.querySelector(selectors);
-    return o?.asElementOf<T>(webType);
+    return o?.asElementOfNullable<T>(webType);
   }
 
   List<Element> querySelectorAllNonTyped(String selectors) {
@@ -96,7 +96,7 @@ extension DocumentExtension on Document {
   List<T> querySelectorAllTyped<T extends Element>(
       String selectors, Web<T> webType) {
     var l = document.querySelectorAll(selectors).whereElement();
-    return l.map((e) => e.asElementOf<T>(webType)).nonNulls.toList();
+    return l.map((e) => e.asElementOfNullable<T>(webType)).nonNulls.toList();
   }
 }
 
@@ -529,7 +529,10 @@ extension ElementNullableExtension on Element? {
 
   bool isElementOf<T extends Element>(Web<T> webType) => webType.isOf(this);
 
-  T? asElementOf<T extends Element>(Web<T> webType) => webType.cast(this);
+  T asElementOf<T extends Element>(Web<T> webType) => webType.cast(this);
+
+  T? asElementOfNullable<T extends Element>(Web<T> webType) =>
+      webType.castNullable(this);
 
   bool get isCanvasImageSource {
     final node = this;
@@ -569,7 +572,7 @@ extension ElementExtension on Element {
   T? querySelectorTyped<T extends Element>(String selectors, Web<T> webType) {
     var self = this;
     var elem = self.querySelector(selectors);
-    return elem.isElementOf<T>(webType) ? elem as T? : null;
+    return elem.isElementOf<T>(webType) ? elem as T : null;
   }
 
   /// Alias to [querySelectorAll].
