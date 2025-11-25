@@ -859,6 +859,20 @@ extension NamedNodeMapExtension on NamedNodeMap {
           a.value.toDartFix,
         ),
       ));
+
+  Attr? getAttribute(String key, {String? ns}) {
+    if (ns != null) {
+      return getNamedItemNS(ns, key);
+    } else {
+      return getNamedItem(key);
+    }
+  }
+
+  bool containsAttribute(String key, {String? ns}) =>
+      getAttribute(key, ns: ns) != null;
+
+  String? getAttributeValue(String key, {String? ns}) =>
+      getAttribute(key, ns: ns)?.value;
 }
 
 extension HTMLCollectionExtension on HTMLCollection {

@@ -1,3 +1,8 @@
+## 1.0.19
+
+- `NamedNodeMapExtension`:
+  - Added `getAttribute`, `containsAttribute`, `getAttributeValue`.
+
 ## 1.0.18
 
 - `ElementNullableExtension`:
