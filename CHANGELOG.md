@@ -1,3 +1,13 @@
+## 1.0.20
+
+- `HTMLOptionsCollection`, `TouchList`, `FileList`, `CSSRuleList`,
+  `DOMTokenList`, `NamedNodeMap`, `HTMLCollection`, `NodeList` extensions:
+  - Added `asListView` getter returning a `VirtualListView` for lazy indexed access.
+  - Added `asListViewFixed` getter returning a `VirtualFixedListView` with fixed length.
+
+- `pubspec.yaml`:
+  - Updated `test` dependency from `^1.28.0` to `^1.29.0`.
+
 ## 1.0.19
 
 - `NamedNodeMapExtension`:

@@ -6,6 +6,7 @@ import 'package:web/web.dart' as web;
 import 'package:web/web.dart' hide querySelector;
 
 import 'web_utils_type_checks.dart';
+import 'wev_utils_virtual_list.dart';
 
 extension WebObjectExtension on Object? {
   bool get isNode => asJSAny.isNode;
@@ -752,6 +753,12 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   List<HTMLOptionElement> toList() =>
       List.generate(length, (i) => item(i) as HTMLOptionElement);
 
+  VirtualListView<HTMLOptionElement> get asListView =>
+      VirtualListView(() => length, (i) => item(i) as HTMLOptionElement);
+
+  VirtualFixedListView<HTMLOptionElement> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i) as HTMLOptionElement);
+
   bool get isEmpty => length == 0;
 
   bool get isNotEmpty => !isEmpty;
@@ -762,6 +769,12 @@ extension TouchListExtension on TouchList {
 
   List<Touch> toList() => List.generate(length, (i) => item(i)!);
 
+  VirtualListView<Touch> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<Touch> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
+
   bool get isEmpty => length == 0;
 
   bool get isNotEmpty => !isEmpty;
@@ -771,6 +784,12 @@ extension FileListExtension on FileList {
   Iterable<File> toIterable() => Iterable.generate(length, (i) => item(i)!);
 
   List<File> toList() => List.generate(length, (i) => item(i)!);
+
+  VirtualListView<File> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<File> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
 
   bool get isEmpty => length == 0;
 
@@ -787,6 +806,12 @@ extension CSSRuleListExtension on CSSRuleList {
   Iterable<CSSRule> toIterable() => Iterable.generate(length, (i) => item(i)!);
 
   List<CSSRule> toList() => List.generate(length, (i) => item(i)!);
+
+  VirtualListView<CSSRule> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<CSSRule> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
 
   bool get isEmpty => length == 0;
 
@@ -808,6 +833,12 @@ extension DOMTokenListExtension on DOMTokenList {
       Iterable.generate(length, (i) => item(i)!.toDartFix);
 
   List<String> toList() => List.generate(length, (i) => item(i)!.toDartFix);
+
+  VirtualListView<String> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!.toDartFix);
+
+  VirtualFixedListView<String> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!.toDartFix);
 
   bool get isEmpty => length == 0;
 
@@ -847,6 +878,12 @@ extension NamedNodeMapExtension on NamedNodeMap {
 
   List<Attr> toList() => List.generate(length, (i) => item(i)!);
 
+  VirtualListView<Attr> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<Attr> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
+
   Iterable<T> whereType<T>() => toIterable().whereType<T>();
 
   bool get isEmpty => length == 0;
@@ -880,6 +917,12 @@ extension HTMLCollectionExtension on HTMLCollection {
 
   List<Element> toList() => List.generate(length, (i) => item(i)!);
 
+  VirtualListView<Element> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<Element> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
+
   Iterable<T> whereType<T>() => toIterable().whereType<T>();
 
   bool get isEmpty => length == 0;
@@ -904,6 +947,12 @@ extension NodeListExtension on NodeList {
   Iterable<Node> toIterable() => Iterable.generate(length, (i) => item(i)!);
 
   List<Node> toList() => List.generate(length, (i) => item(i)!);
+
+  VirtualListView<Node> get asListView =>
+      VirtualListView(() => length, (i) => item(i)!);
+
+  VirtualFixedListView<Node> get asListViewFixed =>
+      VirtualFixedListView(length, (i) => item(i)!);
 
   Iterable<Node> where(bool Function(Node element) test) =>
       toIterable().where(test);
