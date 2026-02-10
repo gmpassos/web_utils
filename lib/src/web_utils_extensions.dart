@@ -1393,3 +1393,209 @@ extension KeyboardEventExtension on KeyboardEvent {
 
   bool get isNavigationKey => isKeyTabOrEnter || isArrowKey || isKeyEscape;
 }
+
+/// Strongly typed DOM event identifiers.
+///
+/// Associates a DOM event name with its corresponding [Event] subtype,
+/// enabling compile-time safety when registering event listeners.
+enum EventType<E extends Event> {
+  // Core / lifecycle
+  abort<ProgressEvent>('abort'),
+  activate<Event>('activate'),
+  cached<Event>('cached'),
+  cancel<Event>('cancel'),
+  change<Event>('change'),
+  close<CloseEvent>('close'),
+  complete<Event>('complete'),
+  connect<Event>('connect'),
+  contentLoaded<Event>('DOMContentLoaded'),
+  error<Event>('error'),
+  exit<Event>('exit'),
+  finish<Event>('finish'),
+  install<Event>('install'),
+  invalid<Event>('invalid'),
+  load<ProgressEvent>('load'),
+  unload<Event>('unload'),
+  readyStateChange<Event>('readystatechange'),
+
+  // Mouse
+  click<MouseEvent>('click'),
+  doubleClick<MouseEvent>('dblclick'),
+  contextMenu<MouseEvent>('contextmenu'),
+  mouseDown<MouseEvent>('mousedown'),
+  mouseUp<MouseEvent>('mouseup'),
+  mouseMove<MouseEvent>('mousemove'),
+  mouseEnter<MouseEvent>('mouseenter'),
+  mouseLeave<MouseEvent>('mouseleave'),
+  mouseOver<MouseEvent>('mouseover'),
+  mouseOut<MouseEvent>('mouseout'),
+  wheel<WheelEvent>('wheel'),
+
+  // Keyboard
+  keyDown<KeyboardEvent>('keydown'),
+  keyUp<KeyboardEvent>('keyup'),
+  keyPress<KeyboardEvent>('keypress'),
+
+  // Focus / selection
+  focus<Event>('focus'),
+  blur<Event>('blur'),
+  select<Event>('select'),
+  selectStart<Event>('selectstart'),
+  selectionChange<Event>('selectionchange'),
+
+  // Input / forms
+  input<Event>('input'),
+  submit<Event>('submit'),
+  reset<Event>('reset'),
+  search<Event>('search'),
+
+  // Clipboard
+  copy<ClipboardEvent>('copy'),
+  cut<ClipboardEvent>('cut'),
+  paste<ClipboardEvent>('paste'),
+  beforeCopy<Event>('beforecopy'),
+  beforeCut<Event>('beforecut'),
+  beforePaste<Event>('beforepaste'),
+
+  // Drag & drop
+  drag<MouseEvent>('drag'),
+  dragStart<MouseEvent>('dragstart'),
+  dragEnd<MouseEvent>('dragend'),
+  dragEnter<MouseEvent>('dragenter'),
+  dragLeave<MouseEvent>('dragleave'),
+  dragOver<MouseEvent>('dragover'),
+  drop<MouseEvent>('drop'),
+
+  // Touch
+  touchStart<TouchEvent>('touchstart'),
+  touchMove<TouchEvent>('touchmove'),
+  touchEnd<TouchEvent>('touchend'),
+  touchCancel<TouchEvent>('touchcancel'),
+  touchEnter<TouchEvent>('touchenter'),
+  touchLeave<TouchEvent>('touchleave'),
+
+  // Pointer lock
+  pointerLockChange<Event>('pointerlockchange'),
+  pointerLockError<Event>('pointerlockerror'),
+
+  // Media
+  play<Event>('play'),
+  pause<Event>('pause'),
+  playing<Event>('playing'),
+  ended<Event>('ended'),
+  timeUpdate<Event>('timeupdate'),
+  rateChange<Event>('ratechange'),
+  volumeChange<Event>('volumechange'),
+  durationChange<Event>('durationchange'),
+  loadedData<Event>('loadeddata'),
+  loadedMetadata<Event>('loadedmetadata'),
+  waiting<Event>('waiting'),
+  stalled<Event>('stalled'),
+  suspend<Event>('suspend'),
+  seeking<Event>('seeking'),
+  seeked<Event>('seeked'),
+  mute<Event>('mute'),
+  unmute<Event>('unmute'),
+
+  // Progress / IO
+  loadStart<ProgressEvent>('loadstart'),
+  loadEnd<ProgressEvent>('loadend'),
+  progress<ProgressEvent>('progress'),
+  timeout<ProgressEvent>('timeout'),
+  write<ProgressEvent>('write'),
+  writeStart<ProgressEvent>('writestart'),
+  writeEnd<ProgressEvent>('writeend'),
+
+  // Storage / history
+  storage<StorageEvent>('storage'),
+  popState<PopStateEvent>('popstate'),
+  hashChange<Event>('hashchange'),
+  pageShow<Event>('pageshow'),
+  pageHide<Event>('pagehide'),
+
+  // WebRTC
+  iceCandidate<RTCPeerConnectionIceEvent>('icecandidate'),
+  negotiationNeeded<Event>('negotiationneeded'),
+  signalingStateChange<Event>('signalingstatechange'),
+  iceConnectionStateChange<Event>('iceconnectionstatechange'),
+  dataChannel<RTCDataChannelEvent>('datachannel'),
+  track<RTCTrackEvent>('track'),
+  toneChange<RTCDTMFToneChangeEvent>('tonechange'),
+
+  // Device
+  deviceMotion<DeviceMotionEvent>('devicemotion'),
+  deviceOrientation<DeviceOrientationEvent>('deviceorientation'),
+
+  // Speech / audio
+  audioStart<Event>('audiostart'),
+  audioEnd<Event>('audioend'),
+  soundStart<Event>('soundstart'),
+  soundEnd<Event>('soundend'),
+  speechStart<Event>('speechstart'),
+  speechEnd<Event>('speechend'),
+  start<SpeechSynthesisEvent>('start'),
+  end<SpeechSynthesisEvent>('end'),
+  mark<SpeechSynthesisEvent>('mark'),
+  boundary<SpeechSynthesisEvent>('boundary'),
+  resume<SpeechSynthesisEvent>('resume'),
+  result<SpeechRecognitionEvent>('result'),
+  noMatch<SpeechRecognitionEvent>('nomatch'),
+
+  // Fonts
+  loading<FontFaceSetLoadEvent>('loading'),
+  loadingDone<FontFaceSetLoadEvent>('loadingdone'),
+  loadingError<FontFaceSetLoadEvent>('loadingerror'),
+
+  // Fullscreen / WebGL
+  fullscreenChange<Event>('webkitfullscreenchange'),
+  fullscreenError<Event>('webkitfullscreenerror'),
+  webGlContextLost<WebGLContextEvent>('webglcontextlost'),
+  webGlContextRestored<WebGLContextEvent>('webglcontextrestored'),
+
+  // Security / cache
+  securityPolicyViolation<SecurityPolicyViolationEvent>(
+      'securitypolicyviolation'),
+  updateReady<Event>('updateready'),
+  obsolete<Event>('obsolete'),
+  checking<Event>('checking'),
+  downloading<Event>('downloading'),
+  noUpdate<Event>('noupdate'),
+
+  // IndexedDB
+  upgradeNeeded<IDBVersionChangeEvent>('upgradeneeded'),
+  versionChange<IDBVersionChangeEvent>('versionchange'),
+
+  // Accessibility
+  accessibleClick<Event>('accessibleclick'),
+  accessibleContextMenu<Event>('accessiblecontextmenu'),
+  accessibleIncrement<Event>('accessibleincrement'),
+  accessibleDecrement<Event>('accessibledecrement'),
+  accessibleFocus<Event>('accessiblefocus'),
+  accessibleScrollIntoView<Event>('accessiblescrollintoview');
+
+  /// The raw DOM event type string.
+  final String type;
+
+  const EventType(this.type);
+
+  /// Registers a typed event listener on the given [eventTarget].
+  ///
+  /// The [callback] receives an event of type [E], matching this [EventType].
+  void addEventListener(EventTarget eventTarget, EventCallback<E> callback) {
+    eventTarget.addEventListenerTyped<E>(this, callback);
+  }
+}
+
+/// Signature for strongly typed DOM event callbacks.
+typedef EventCallback<E extends Event> = void Function(E event);
+
+/// Extension providing typed DOM event listener registration.
+extension EventTargetExtension on EventTarget {
+  /// Registers a strongly typed event listener.
+  ///
+  /// Converts the Dart [callback] to a JavaScript-compatible function and
+  /// binds it to the underlying DOM event defined by [type].
+  void addEventListenerTyped<E extends Event>(
+          EventType<E> type, EventCallback<E> callback) =>
+      addEventListener(type.type, callback.toJS);
+}

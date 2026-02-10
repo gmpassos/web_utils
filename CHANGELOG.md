@@ -1,3 +1,18 @@
+## 1.0.21
+
+- New `EventType` enum for strongly typed DOM event identifiers:
+  - Associates DOM event names with their corresponding `Event` subtype.
+  - Includes core, mouse, keyboard, focus, input, clipboard, drag & drop, touch, pointer lock, media, progress, storage, WebRTC, device, speech, fonts, fullscreen, security, IndexedDB, and accessibility events.
+  - Provides `addEventListener` method to register typed event listeners on `EventTarget`.
+
+- New `EventCallback` typedef for strongly typed DOM event callbacks.
+
+- New `EventTargetExtension` extension:
+  - Adds `addEventListenerTyped` method to register strongly typed event listeners using `EventType`.
+
+- Updated `pubspec.yaml`:
+  - Bumped `dependency_validator` dev dependency from `^5.0.3` to `^5.0.4`.
+
 ## 1.0.20
 
 - `HTMLOptionsCollection`, `TouchList`, `FileList`, `CSSRuleList`,
