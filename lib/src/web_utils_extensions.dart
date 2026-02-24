@@ -1581,21 +1581,86 @@ enum EventType<E extends Event> {
   /// Registers a typed event listener on the given [eventTarget].
   ///
   /// The [callback] receives an event of type [E], matching this [EventType].
-  void addEventListener(EventTarget eventTarget, EventCallback<E> callback) {
-    eventTarget.addEventListenerTyped<E>(this, callback);
+  RegisteredEventListener addEventListener(
+          EventTarget eventTarget, EventCallback<E> callback) =>
+      eventTarget.addEventListenerTyped<E>(this, callback);
+}
+
+/// A strongly typed DOM event callback.
+///
+/// The generic type [E] defines the concrete [Event] subtype
+/// expected by the listener.
+typedef EventCallback<E extends Event> = void Function(E event);
+
+/// Provides strongly typed DOM event listener registration.
+extension EventTargetExtension on EventTarget {
+  /// Registers a typed DOM event listener.
+  ///
+  /// The provided [callback] is converted to a JavaScript-compatible
+  /// function and attached to this [EventTarget] for the given [type].
+  ///
+  /// Returns a [RegisteredEventListener] containing the generated
+  /// [JSExportedDartFunction]. This object can later be used to
+  /// remove the listener via [EventTarget.removeEventListener].
+  /// See [RegisteredEventListener].
+  RegisteredEventListener addEventListenerTyped<E extends Event>(
+    EventType<E> type,
+    EventCallback<E> callback,
+  ) {
+    var jsCallback = callback.toJS;
+    addEventListener(type.type, jsCallback);
+    return RegisteredEventListener(this, type.type, jsCallback);
   }
 }
 
-/// Signature for strongly typed DOM event callbacks.
-typedef EventCallback<E extends Event> = void Function(E event);
+/// Represents a registered DOM event listener.
+///
+/// This object encapsulates all information required to properly
+/// unregister the listener from the DOM:
+///
+/// - The original [EventTarget]
+/// - The event [type]
+/// - The generated [JSExportedDartFunction] used during registration
+///
+/// Because the DOM requires the exact same JavaScript function
+/// reference to remove a listener, this wrapper guarantees safe
+/// and correct unregistration.
+class RegisteredEventListener {
+  /// The target on which the listener was registered.
+  final EventTarget eventTarget;
 
-/// Extension providing typed DOM event listener registration.
-extension EventTargetExtension on EventTarget {
-  /// Registers a strongly typed event listener.
+  /// The DOM event type string (e.g. `"click"`).
+  final String type;
+
+  /// The JavaScript function reference created from the Dart callback.
   ///
-  /// Converts the Dart [callback] to a JavaScript-compatible function and
-  /// binds it to the underlying DOM event defined by [type].
-  void addEventListenerTyped<E extends Event>(
-          EventType<E> type, EventCallback<E> callback) =>
-      addEventListener(type.type, callback.toJS);
+  /// *DOM requires the exact same JavaScript function
+  /// reference to remove a listener.*
+  final JSExportedDartFunction jsCallback;
+
+  /// Creates a representation of a registered event listener.
+  ///
+  /// This constructor is typically used internally by
+  /// `addEventListenerTyped`.
+  RegisteredEventListener(this.eventTarget, this.type, this.jsCallback);
+
+  /// Unregisters this listener from its [eventTarget].
+  ///
+  /// After calling this method, the listener will no longer
+  /// receive events. Calling this method multiple times has
+  /// no additional effect.
+  void unregister() {
+    eventTarget.removeEventListener(type, jsCallback);
+  }
+}
+
+extension IterableRegisteredEventListenerExtension
+    on Iterable<RegisteredEventListener?> {
+  void unregisterAll() {
+    for (var reg in this) {
+      if (reg != null) {
+        reg.unregister();
+      }
+    }
+  }
 }

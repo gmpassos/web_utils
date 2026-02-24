@@ -1,3 +1,17 @@
+## 1.0.22
+
+- New `RegisteredEventListener`:
+  - Encapsulates event target, event type, and JS callback function.
+  - Provides `unregister` method to safely remove the listener.
+  - Added `IterableRegisteredEventListenerExtension`:
+    - Provides `unregisterAll` method to unregister multiple listeners safely.
+
+- `EventType`:
+  - `addEventListener`: changed to return `RegisteredEventListener` instead of void.
+
+- `EventTargetExtension`:
+  - `addEventListenerTyped`: returns a `RegisteredEventListener`.
+
 ## 1.0.21
 
 - New `EventType` enum for strongly typed DOM event identifiers:
