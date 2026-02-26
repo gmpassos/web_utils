@@ -5,8 +5,9 @@ import 'package:js_interop_utils/js_interop_utils.dart';
 import 'package:web/web.dart' as web;
 import 'package:web/web.dart' hide querySelector;
 
+import 'web_utils_helpers.dart' as helpers;
 import 'web_utils_type_checks.dart';
-import 'wev_utils_virtual_list.dart';
+import 'web_utils_virtual_list.dart';
 
 extension WebObjectExtension on Object? {
   bool get isNode => asJSAny.isNode;
@@ -692,6 +693,11 @@ extension ElementExtension on Element {
     for (var e in attrs.entries) {
       setAttribute(e.key, e.value);
     }
+  }
+
+  void setAttributesFromKeyValueLists(
+      List<String> attrsKeys, List<String?> attrsValues) {
+    helpers.setAttributesFromKeyValueLists(this, attrsKeys, attrsValues);
   }
 }
 

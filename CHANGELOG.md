@@ -1,3 +1,18 @@
+## 1.0.23
+
+- Added `web_utils_helpers.dart`:
+  - Introduced `_setElementAttributesJS` JavaScript interop function to set or remove multiple attributes on an `Element` in a single JS call.
+  - Added `setAttributesFromKeyValueLists` helper method to efficiently set multiple attributes using parallel lists of keys and values.
+
+- `ElementExtension` (`web_utils_extensions.dart`):
+  - Added `setAttributesFromKeyValueLists` method that delegates to the new helper for batch attribute setting.
+
+- `web_utils.dart`:
+  - Exported the new `web_utils_helpers.dart`.
+
+- Dependencies:
+  - Updated `js_interop_utils` from `^1.0.9` to `^1.0.11`.
+
 ## 1.0.22
 
 - New `RegisteredEventListener`:

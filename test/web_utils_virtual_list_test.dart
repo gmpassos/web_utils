@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:web_utils/src/wev_utils_virtual_list.dart';
+import 'package:web_utils/src/web_utils_virtual_list.dart';
 
 void main() {
   group('VirtualListView', () {
