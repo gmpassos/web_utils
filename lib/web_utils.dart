@@ -4,7 +4,9 @@
 library;
 
 export 'package:js_interop_utils/js_interop_utils.dart';
-export 'package:web/web.dart';
+// `TouchListConvert.toList` (deprecated in `package:web`) is ambiguous with
+// `TouchListExtension.toList`.
+export 'package:web/web.dart' hide TouchListConvert;
 
 export 'src/web_utils_extensions.dart';
 export 'src/web_utils_helpers.dart';
