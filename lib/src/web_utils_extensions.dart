@@ -189,7 +189,7 @@ extension NodeExtension on Node {
   List<Node> clearNodes() {
     var nodes = childNodes.toList();
     for (var n in nodes.reversed) {
-      n.removeChild(n);
+      removeChild(n);
     }
     return nodes;
   }
@@ -1116,10 +1116,10 @@ extension IDBRequestExtension on IDBRequest {
       if (!next) {
         completer.completeSafe(r);
       } else {
-        if (cursor.isA<IDBCursor>()) {
-          // ignore: invalid_runtime_check_with_js_interop_types
-          var iDBCursor = cursor as IDBCursor;
-          iDBCursor.continue_();
+        // Not `cursor`: a cast from the generic `T?` isn't platform-consistent.
+        final result = request.result;
+        if (result.isA<IDBCursor>()) {
+          (result as IDBCursor).continue_();
         }
       }
     }.toJS;
