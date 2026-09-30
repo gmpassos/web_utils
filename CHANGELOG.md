@@ -1,3 +1,38 @@
+## 1.1.0
+
+- sdk: ^3.13.0
+
+- `web_utils.dart`:
+  - Fix: no longer re-exports `package:web`'s deprecated `TouchListConvert`, whose `toList` made
+    `TouchList.toList()` ambiguous with `TouchListExtension.toList` (compile error).
+
+- `NodeExtension`:
+  - Fix: `clearNodes` (and `clear` on a non-`Element` node, e.g. a `DocumentFragment`) threw a `NotFoundError`:
+    it called `removeChild` on each child instead of on the node itself.
+
+- `IDBRequestExtension.process`:
+  - Removed an `invalid_runtime_check_with_js_interop_types` ignore: the cursor is now checked and cast from
+    `request.result` instead of the generic `T?`.
+
+- Now based on `js_interop_utils` 1.1.0 (re-exported), which brings:
+  - `isA`-based `asJSAny`/`asJSObject`: `isNode`/`isElement`/`isHTMLElement` and `Web.isOf`/`castNullable` are
+    reliably `false`/`null` for non-JS Dart objects with `dart2js`.
+  - Typed lists `.toJS` (e.g. `Uint8ClampedList` for `ImageData`, `Float64List` for `Blob`) produce JS typed arrays
+    instead of JS `Array`s.
+  - New `JSIterable`, `prototype`/`isPlainObject` and `isJSFunction` helpers.
+
+- Tests:
+  - Added integration tests (`test/web_utils_integration_test.dart`): IndexedDB (`openDatabase`, `process` with
+    cursors and errors), `localStorage`, DOM building, typed events, canvas/`ImageData`/`Blob`/`FileReader`/`FileList`.
+  - Added unit tests for the whole public API (`test/web_utils_api_test.dart`), including every `Web` type and DOM
+    type check (cached and uncached).
+
+- Dependencies:
+  - js_interop_utils: ^1.1.0
+  - lints: ^6.1.0
+  - test: ^1.32.0
+  - dependency_validator: ^5.1.0
+
 ## 1.0.23
 
 - Added `web_utils_helpers.dart`:

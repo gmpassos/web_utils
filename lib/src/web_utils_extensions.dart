@@ -96,7 +96,9 @@ extension DocumentExtension on Document {
   }
 
   List<T> querySelectorAllTyped<T extends Element>(
-      String selectors, Web<T> webType) {
+    String selectors,
+    Web<T> webType,
+  ) {
     var l = document.querySelectorAll(selectors).whereElement();
     return l.map((e) => e.asElementOfNullable<T>(webType)).nonNulls.toList();
   }
@@ -187,7 +189,7 @@ extension NodeExtension on Node {
   List<Node> clearNodes() {
     var nodes = childNodes.toList();
     for (var n in nodes.reversed) {
-      n.removeChild(n);
+      removeChild(n);
     }
     return nodes;
   }
@@ -268,15 +270,18 @@ enum Web<T> {
   HTMLTrackElement(_isHTMLTrackElement, _castHTMLTrackElement),
   // ignore: constant_identifier_names
   HTMLTableCaptionElement(
-      _isHTMLTableCaptionElement, _castHTMLTableCaptionElement),
+    _isHTMLTableCaptionElement,
+    _castHTMLTableCaptionElement,
+  ),
   // ignore: constant_identifier_names
   HTMLTableColElement(_isHTMLTableColElement, _castHTMLTableColElement),
   // ignore: constant_identifier_names
   HTMLTableSectionElement(
-      _isHTMLTableSectionElement, _castHTMLTableSectionElement),
+    _isHTMLTableSectionElement,
+    _castHTMLTableSectionElement,
+  ),
   // ignore: constant_identifier_names
-  Notification(_isNotification, _castNotification),
-  ;
+  Notification(_isNotification, _castNotification);
 
   /////////////////
 
@@ -593,7 +598,9 @@ extension ElementExtension on Element {
 
   /// Alias to [querySelectorAll] filtering by [webType] and casting elements to [T].
   List<T> querySelectorAllTyped<T extends Element>(
-      String selectors, Web<T> webType) {
+    String selectors,
+    Web<T> webType,
+  ) {
     var self = this;
     var list = self.querySelectorAll(selectors);
     return list.whereElementType<T>(webType).toList();
@@ -696,7 +703,9 @@ extension ElementExtension on Element {
   }
 
   void setAttributesFromKeyValueLists(
-      List<String> attrsKeys, List<String?> attrsValues) {
+    List<String> attrsKeys,
+    List<String?> attrsValues,
+  ) {
     helpers.setAttributesFromKeyValueLists(this, attrsKeys, attrsValues);
   }
 }
@@ -896,12 +905,9 @@ extension NamedNodeMapExtension on NamedNodeMap {
 
   bool get isNotEmpty => !isEmpty;
 
-  Map<String, String> toMap() => Map.fromEntries(toIterable().map(
-        (a) => MapEntry(
-          a.name.toDartFix,
-          a.value.toDartFix,
-        ),
-      ));
+  Map<String, String> toMap() => Map.fromEntries(
+    toIterable().map((a) => MapEntry(a.name.toDartFix, a.value.toDartFix)),
+  );
 
   Attr? getAttribute(String key, {String? ns}) {
     if (ns != null) {
@@ -1058,8 +1064,9 @@ extension IDBFactoryExtension on IDBFactory {
     void Function(Event event)? onBlocked,
   }) async {
     if ((version == null) != (onUpgradeNeeded == null)) {
-      return Future.error(ArgumentError(
-          'version and onUpgradeNeeded must be specified together'));
+      return Future.error(
+        ArgumentError('version and onUpgradeNeeded must be specified together'),
+      );
     }
     try {
       IDBOpenDBRequest? request;
@@ -1079,8 +1086,9 @@ extension IDBFactoryExtension on IDBFactory {
 
       final completer = Completer<void>();
 
-      request.onerror = ((Event _) => completer
-          .completeError(request?.error?.message ?? 'Unknown Error!')).toJS;
+      request.onerror = ((Event _) => completer.completeError(
+        request?.error?.message ?? 'Unknown Error!',
+      )).toJS;
 
       request.onsuccess = ((Event _) => completer.complete()).toJS;
 
@@ -1095,7 +1103,8 @@ extension IDBFactoryExtension on IDBFactory {
 
 extension IDBRequestExtension on IDBRequest {
   Future<R?> process<T extends JSAny, R>(
-      ({bool next, R? result}) Function(T? result) processor) {
+    ({bool next, R? result}) Function(T? result) processor,
+  ) {
     final completer = Completer<R?>();
 
     onsuccess = (Event event) {
@@ -1107,10 +1116,10 @@ extension IDBRequestExtension on IDBRequest {
       if (!next) {
         completer.completeSafe(r);
       } else {
-        if (cursor.isA<IDBCursor>()) {
-          // ignore: invalid_runtime_check_with_js_interop_types
-          var iDBCursor = cursor as IDBCursor;
-          iDBCursor.continue_();
+        // Not `cursor`: a cast from the generic `T?` isn't platform-consistent.
+        final result = request.result;
+        if (result.isA<IDBCursor>()) {
+          (result as IDBCursor).continue_();
         }
       }
     }.toJS;
@@ -1315,9 +1324,10 @@ extension GeolocationExtension on Geolocation {
         controller.addError(geoPosError);
       }.toJS,
       PositionOptions(
-          enableHighAccuracy: enableHighAccuracy,
-          timeout: timeout.inMilliseconds,
-          maximumAge: maximumAge.inMilliseconds),
+        enableHighAccuracy: enableHighAccuracy,
+        timeout: timeout.inMilliseconds,
+        maximumAge: maximumAge.inMilliseconds,
+      ),
     );
 
     controller.onCancel = () {
@@ -1343,9 +1353,10 @@ extension GeolocationExtension on Geolocation {
         completer.completeErrorSafe(geoPosError);
       }.toJS,
       PositionOptions(
-          enableHighAccuracy: enableHighAccuracy,
-          timeout: timeout.inMilliseconds,
-          maximumAge: maximumAge.inMilliseconds),
+        enableHighAccuracy: enableHighAccuracy,
+        timeout: timeout.inMilliseconds,
+        maximumAge: maximumAge.inMilliseconds,
+      ),
     );
 
     return completer.future;
@@ -1560,7 +1571,8 @@ enum EventType<E extends Event> {
 
   // Security / cache
   securityPolicyViolation<SecurityPolicyViolationEvent>(
-      'securitypolicyviolation'),
+    'securitypolicyviolation',
+  ),
   updateReady<Event>('updateready'),
   obsolete<Event>('obsolete'),
   checking<Event>('checking'),
@@ -1588,8 +1600,9 @@ enum EventType<E extends Event> {
   ///
   /// The [callback] receives an event of type [E], matching this [EventType].
   RegisteredEventListener addEventListener(
-          EventTarget eventTarget, EventCallback<E> callback) =>
-      eventTarget.addEventListenerTyped<E>(this, callback);
+    EventTarget eventTarget,
+    EventCallback<E> callback,
+  ) => eventTarget.addEventListenerTyped<E>(this, callback);
 }
 
 /// A strongly typed DOM event callback.
