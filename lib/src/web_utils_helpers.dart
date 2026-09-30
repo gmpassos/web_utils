@@ -10,7 +10,8 @@ void _define() {
   if (_defined) return;
   _defined = true;
 
-  jsEval(r'''
+  jsEval(
+    r'''
 window._setElementAttributesJS = function(el, attrsKeys, attrsValues) {
   const keys = attrsKeys;
   const values = attrsValues;
@@ -26,7 +27,8 @@ window._setElementAttributesJS = function(el, attrsKeys, attrsValues) {
   }
 }
 '''
-      .toJS);
+        .toJS,
+  );
 }
 
 @JS()
@@ -55,9 +57,5 @@ void setAttributesFromKeyValueLists(
 ) {
   if (!_defined) _define();
   assert(attrsKeys.length == attrsValues.length);
-  _setElementAttributesJS(
-    element,
-    attrsKeys.toJS,
-    attrsValues.toJS,
-  );
+  _setElementAttributesJS(element, attrsKeys.toJS, attrsValues.toJS);
 }
